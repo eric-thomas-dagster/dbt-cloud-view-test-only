@@ -1,10 +1,12 @@
 """dbt Cloud component that skips view builds but still runs their tests.
 
-Views are cheap (just CREATE VIEW) but on some platforms they count as billable
-model builds. This component rewrites the dbt selection so that views are
-selected as test-only using dbt's intersection syntax
-(model_name,resource_type:test), while non-view models build normally.
+When dbt rebuilds a view, it is briefly dropped and recreated. If other teams
+or markets are querying that view concurrently, they hit errors. Since views
+always reflect the current state of their upstream tables, there is no reason
+to rebuild them on every run.
 
+This component rewrites the dbt selection so that views are selected as
+test-only (model_name,resource_type:test), while non-view models build normally.
 After the run completes, Dagster yields Output events for view assets so they
 show as materialized (green) in the asset graph.
 """
