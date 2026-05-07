@@ -1,0 +1,19 @@
+type: dbt_cloud_view_test_only.components.dbt_cloud_view_test_only_component.DbtCloudViewTestOnlyComponent
+
+attributes:
+  workspace:
+    account_id: YOUR_ACCOUNT_ID
+    token: "{{ env.DBT_CLOUD_TOKEN }}"
+    access_url: "https://cloud.getdbt.com"
+    project_id: YOUR_PROJECT_ID
+    environment_id: YOUR_ENVIRONMENT_ID
+
+  op:
+    name: dbt_cloud_assets
+
+  # Views are skipped by default (that's the whole point of this component).
+  # Set to false to disable and use standard DbtCloudComponent behavior.
+  skip_view_builds: true
+
+  translation_settings:
+    enable_dbt_selection_by_name: true
