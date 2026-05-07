@@ -1,9 +1,7 @@
 """dbt Cloud component that skips view builds but still runs their tests.
 
-When dbt rebuilds a view, it is briefly dropped and recreated. If other teams
-or markets are querying that view concurrently, they hit errors. Since views
-always reflect the current state of their upstream tables, there is no reason
-to rebuild them on every run.
+There is no need to always rebuild a view — views reflect the current state of
+their upstream tables automatically. But you may always want the tests to run.
 
 This component rewrites the dbt selection so that views are selected as
 test-only (model_name,resource_type:test), while non-view models build normally.

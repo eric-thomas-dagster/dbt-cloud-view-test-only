@@ -4,7 +4,7 @@ A custom Dagster component that extends `DbtCloudComponent` to skip rebuilding d
 
 ## Problem
 
-When `dbt build` rebuilds a view, the view is briefly dropped and recreated. If other teams or markets are querying or running tests against that view at the same time, they hit errors — the view doesn't exist mid-rebuild. Since views always reflect the current state of their upstream tables, there's no reason to rebuild them on every run.
+There is no need to always rebuild a view — views reflect the current state of their upstream tables automatically. But you may always want the tests to run.
 
 Using `--exclude config.materialized:view` doesn't work because dbt's exclude cascades to tests — excluding views also excludes their tests.
 
